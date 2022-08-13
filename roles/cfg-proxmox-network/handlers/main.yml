@@ -1,0 +1,12 @@
+---
+- name: Restart networking
+  ansible.builtin.service:
+    name: networking
+    state: restarted
+
+
+- name: Restart iptables-persistent
+  ansible.builtin.service:
+    name: iptables
+    state: restarted
+

@@ -1,0 +1,19 @@
+---
+cfg_proxmox_network_ipv4_public_interface: enp27s0
+
+cfg_proxmox_network_ipv4_public_ip_address: 144.76.30.62/27
+cfg_proxmox_network_ipv4_public_ip_gateway: 144.76.30.33
+
+cfg_proxmox_network_ipv4_public_ip_route_address: 144.76.30.32
+cfg_proxmox_network_ipv4_public_ip_route_mask: 255.255.255.224
+cfg_proxmox_network_ipv4_public_ip_route_gatway: 144.76.30.33
+
+
+cfg_proxmox_network_ipv6_public_interface: enp27s0
+
+cfg_proxmox_network_ipv6_public_ip_address: 2a01:4f8:191:2104::2/64
+cfg_proxmox_network_ipv6_public_ip_gateway: fe80::1
+
+cfg_proxmox_network_ipv4_lan_ip_address: 192.168.60.1/24
+cfg_proxmox_network_ipv4_lan_ip_gateway: 192.168.60.0/24
+cfg_proxmox_network_ipv4_lan_interface_name: vmbr0

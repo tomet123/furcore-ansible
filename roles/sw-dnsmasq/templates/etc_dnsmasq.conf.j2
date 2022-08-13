@@ -1,0 +1,85 @@
+# Dnsmasq configuration
+# {{ ansible_managed }}
+
+{% if sw_dnsmasq_listen_address is defined %}
+listen-address={{ sw_dnsmasq_listen_address }}
+{% endif %}
+{% if sw_dnsmasq_interface is defined %}
+interface={{ sw_dnsmasq_interface }}
+{% endif %}
+{% if sw_dnsmasq_port is defined %}
+port={{ sw_dnsmasq_port }}
+
+{% endif %}
+{% if sw_dnsmasq_domain_needed %}
+domain-needed
+{% endif %}
+{% if sw_dnsmasq_bogus_priv %}
+bogus-priv
+{% endif %}
+
+{% if sw_dnsmasq_resolv_file is defined %}
+resolv-file={{ sw_dnsmasq_resolv_file }}
+
+{% endif %}
+{% if sw_dnsmasq_addn_hosts is defined %}
+addn-hosts={{ sw_dnsmasq_addn_hosts }}
+
+{% endif %}
+{% if sw_dnsmasq_expand_hosts %}
+expand-hosts
+{% endif %}
+{% if sw_dnsmasq_domain is defined %}
+domain={{ sw_dnsmasq_domain }}
+{% endif %}
+{% if sw_dnsmasq_dhcp_ranges is defined %}
+{% for range in sw_dnsmasq_dhcp_ranges %}
+dhcp-range={{ range.start_addr }},{{ range.end_addr }},{{ range.lease_time }}
+{% endfor%}
+
+{% endif %}
+{% if sw_dnsmasq_dhcp_hosts is defined %}
+{% for host in sw_dnsmasq_dhcp_hosts %}
+dhcp-host={{ host.mac }},{{ host.ip  }}{% if host.name is defined %},{{ host.name }}{% endif %}
+
+{% endfor %}
+
+{% endif %}
+
+{% if sw_dnsmasq_from_host_file %}
+{% for host in groups[sw_dnsmasq_host_file_group] %}
+dhcp-host={{ hostvars[host].mac }},{{ hostvars[host].ansible_host }},{{ host.split('.')[0] }}
+
+{% endfor %}
+
+{% endif %}
+{% if sw_dnsmasq_option_router is defined %}
+dhcp-option=option:router,{{ sw_dnsmasq_option_router }}
+{% endif %}
+
+{% if sw_dnsmasq_upstream_servers is defined %}
+{% if sw_dnsmasq_upstream_servers is iterable %}
+{% for host in sw_dnsmasq_upstream_servers %}
+server={{ host }}
+{% endfor %}
+{% else %}
+server={{ sw_dnsmasq_upstream_servers }}
+{% endif %}
+{% endif %}
+
+{% if sw_dnsmasq_authoritative %}
+dhcp-authoritative
+{% endif %}
+
+{% if sw_dnsmasq_srv_hosts is defined %}
+{% for host in sw_dnsmasq_srv_hosts %}
+srv-host={{ host.name }}{% if host.target is defined %},{{ host.target }}{% endif %}{% if host.port is defined %},{{ host.port }}{% endif %}{% if host.priority is defined %},{{ host.priority }}{% endif %}{% if host.weight is defined %},{{ host.weight }}{% endif %}
+
+{% endfor %}
+{% endif %}
+
+conf-dir=/etc/dnsmasq.d
+
+
+
+

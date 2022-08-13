@@ -1,0 +1,19 @@
+---
+# tasks file for sw-proxmox-fail2ban
+
+- name: Install fail2ban
+  ansible.builtin.package:
+    name: fail2ban
+    state: present
+
+- name: Template fail2ban proxmox filter
+  ansible.builtin.template:
+    src: proxmox.fail2ban.filter.j2
+    dest: /etc/fail2ban/filter.d/proxmox.conf
+  notify: "Restart fail2ban"
+
+- name: Template fail2ban proxmox conf
+  ansible.builtin.template:
+    src: proxmox.fail2ban.j2
+    dest: /etc/fail2ban/jail.d/proxmox.conf
+  notify: "Restart fail2ban"
