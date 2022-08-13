@@ -3,9 +3,10 @@
   vars_files:
     - "vault.crypt"
   roles:
-    - cfg-proxmox-network
-    - sw-proxmox-fail2ban
-    - sw-dnsmasq
+#    - cfg-proxmox-network
+#    - sw-proxmox-fail2ban
+#    - sw-dnsmasq
+    - cfg-proxmox-ct-provision
   vars:
     lan_interface: vmbr0
     cfg_proxmox_network_ipv4_lan_ip_address: 192.168.60.1/24

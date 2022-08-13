@@ -5,4 +5,4 @@ sw_dnsmasq_bogus_priv: true
 sw_dnsmasq_authoritative: false
 sw_dnsmasq_expand_hosts: false
 sw_dnsmasq_from_host_file: false
-sw_dnsmasq_host_file_group: 'vm'
+sw_dnsmasq_host_file_group: 'ct'

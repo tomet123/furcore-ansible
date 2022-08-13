@@ -1,2 +1,37 @@
 ---
 # tasks file for ct-proxmox-provision
+
+- name: Install pip
+  package:
+    name: python3-pip
+    state: present
+
+- name: Install proxmoxer
+  ansible.builtin.pip:
+    name: proxmoxer
+
+- name: remove old token for api access
+  ansible.builtin.command: 
+    cmd: "pveum user token remove root@pam ansible"
+  ignore_errors: true
+  
+
+- name: get token for api access
+  ansible.builtin.command: 
+    cmd: "pveum user token add root@pam ansible --privsep 0 --output-format=json"
+  register: token_cmd
+
+- name: Create new container with minimal options
+  community.general.proxmox:
+    vmid: 101
+    node: Proxmox-VE
+    api_host: localhost
+    api_user: root@pam
+    api_token_id: ansible
+    api_token_secret: "{{ token_cmd.stdout | from_json | json_query('value')  }}"
+    password: 123456
+    cores: 5
+    unprivileged: true
+    hostname: example.org
+
+    ostemplate: 'local:vztmpl/rockylinux-8-default_20210929_amd64.tar.xz'

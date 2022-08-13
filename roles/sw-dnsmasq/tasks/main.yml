@@ -4,7 +4,6 @@
   package:
     name: dnsmasq
     state: present
-  tags: dnsmasq
 
 - name: Set configuration file
   template:
@@ -12,11 +11,9 @@
     dest: /etc/dnsmasq.conf
 #    validate: 'dnsmasq --test --conf-file=%s'
   notify: restart dnsmasq
-  tags: dnsmasq
 
 - name: Make sure Dnsmasq is running
   service:
     name: dnsmasq
     state: started
     enabled: yes
-  tags: dnsmasq
