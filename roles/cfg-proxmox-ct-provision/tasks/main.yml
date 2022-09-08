@@ -30,10 +30,14 @@
     api_token_id: ansible
     api_token_secret: "{{ token_cmd.stdout | from_json | json_query('value')  }}"
     password: "{{ cfg_proxmox_ct_provision_default_root_pass }}"
+    cpus: 1
     cores: "{{ hostvars[item].ct_cpu }}"
     memory: "{{ hostvars[item].ct_memory }}"
     swap: 0
     unprivileged: true
     hostname: "{{ item }}"
     ostemplate: 'local:vztmpl/rockylinux-8-default_20210929_amd64.tar.xz'
+    disk: "data:{{ hostvars[item].ct_bootdisk }}"
+    proxmox_default_behavior: "compatibility"
+    netif: '{"net0":"name=eth0,ip=dhcp,ip6=dhcp,bridge=vmbr0,hwaddr={{ hostvars[item].mac }}"}'
   loop: "{{ groups[sw_dnsmasq_host_file_group] }}"

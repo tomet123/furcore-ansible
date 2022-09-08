@@ -3,7 +3,7 @@
   vars_files:
     - "vault.crypt"
   roles:
-#    - cfg-proxmox-network
-#    - sw-proxmox-fail2ban
-#    - sw-dnsmasq
+    - cfg-proxmox-network
+    - sw-proxmox-fail2ban
+    - sw-dnsmasq
     - cfg-proxmox-ct-provision

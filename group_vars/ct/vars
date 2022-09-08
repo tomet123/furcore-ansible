@@ -1,2 +1,3 @@
 ct_cpu: 4
 ct_memory: 2048
+ct_bootdisk: 32
