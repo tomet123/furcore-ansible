@@ -21,17 +21,19 @@
     cmd: "pveum user token add root@pam ansible --privsep 0 --output-format=json"
   register: token_cmd
 
-- name: Create new container with minimal options
+- name: Create new containers
   community.general.proxmox:
-    vmid: 101
+    vmid: "{{ (hostvars[item].ansible_host.split('.')[-1] | int) + 500 }}"
     node: Proxmox-VE
     api_host: localhost
     api_user: root@pam
     api_token_id: ansible
     api_token_secret: "{{ token_cmd.stdout | from_json | json_query('value')  }}"
-    password: 123456
-    cores: 5
+    password: "{{ cfg_proxmox_ct_provision_default_root_pass }}"
+    cores: "{{ hostvars[item].ct_cpu }}"
+    memory: "{{ hostvars[item].ct_memory }}"
+    swap: 0
     unprivileged: true
-    hostname: example.org
-
+    hostname: "{{ item }}"
     ostemplate: 'local:vztmpl/rockylinux-8-default_20210929_amd64.tar.xz'
+  loop: "{{ groups[sw_dnsmasq_host_file_group] }}"

@@ -1,2 +1,6 @@
 ---
 # defaults file for ct-proxmox-provision
+
+
+cfg_proxmox_ct_provision_host_group: ct
+cfg_proxmox_ct_provision_default_root_pass: "1234"

@@ -1,0 +1,30 @@
+lan_interface: vmbr0
+cfg_proxmox_network_ipv4_lan_ip_address: 192.168.60.1/24
+cfg_proxmox_network_ipv4_lan_ip_gateway: 192.168.60.0/24
+sw_dnsmasq_upstream_servers:
+  - 8.8.4.4
+  - 8.8.8.8
+sw_dnsmasq_dhcp_ranges:
+  - start_addr: '192.168.60.150'
+    end_addr: '192.168.60.253'
+    lease_time: '8h'
+sw_dnsmasq_from_host_file: true
+sw_dnsmasq_domain: highcastle.cz
+sw_dnsmasq_expand_hosts: true
+sw_dnsmasq_host_file_group: 'ct'
+dnsmasq_option_router: 192.168.60.1
+
+cfg_proxmox_network_ipv4_public_interface: "{{vault_ipv4_public_interface}}"
+cfg_proxmox_network_ipv4_public_ip_address: "{{vault_ipv4_public_ip_address}}"
+cfg_proxmox_network_ipv4_public_ip_gateway: "{{vault_ipv4_public_ip_gateway}}"
+cfg_proxmox_network_ipv4_public_ip_route_address: "{{vault_ipv4_public_ip_route_address}}"
+cfg_proxmox_network_ipv4_public_ip_route_mask: "{{vault_ipv4_public_ip_route_mask}}"
+cfg_proxmox_network_ipv4_public_ip_route_gatway: "{{vault_ipv4_public_ip_route_gatway}}"
+cfg_proxmox_network_ipv6_public_interface: "{{vault_ipv6_public_interface}}"
+cfg_proxmox_network_ipv6_public_ip_address: "{{vault_ipv6_public_ip_address}}"
+cfg_proxmox_network_ipv6_public_ip_gateway: "{{vault_ipv6_public_ip_gateway}}"
+cfg_proxmox_network_ipv4_lan_interface_name: "{{lan_interface}}"
+sw_dnsmasq_interface: "{{lan_interface}}"
+
+cfg_proxmox_ct_provision_host_group: ct
+cfg_proxmox_ct_provision_default_root_pass: "fighstouoghDDFDFD1"

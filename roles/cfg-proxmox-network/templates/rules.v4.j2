@@ -32,6 +32,7 @@
 -A INPUT -p udp -m udp --dport 67 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 68 -j ACCEPT
 -A INPUT -p udp -m udp --dport 68 -j ACCEPT
+-A INPUT -p udp -m udp --dport 111 -j DROP
 
 
 ####################
